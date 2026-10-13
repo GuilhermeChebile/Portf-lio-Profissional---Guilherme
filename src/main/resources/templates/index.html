@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head th:replace="~{fragments :: head(#{site.title})}"></head>
+<body>
+<header th:replace="~{fragments :: header(${active})}"></header>
+
+<main id="main">
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <p class="hero-role" th:text="#{hero.role}">Desenvolvedor em formação</p>
+                <h1 th:text="#{hero.headline}">Construo sistemas e presença digital que funcionam.</h1>
+                <p class="lead" th:text="#{hero.lead(${age})}">Tenho 18 anos...</p>
+                <div class="actions">
+                    <a class="btn btn-primary" th:href="@{/projetos}" th:text="#{hero.cta.projects}">Ver projetos</a>
+                    <a class="btn btn-ghost" th:href="@{/contato}" th:text="#{hero.cta.contact}">Falar comigo</a>
+                </div>
+            </div>
+
+            <figure class="code-card" aria-label="Developer.java">
+                <div class="code-bar" aria-hidden="true">
+                    <span></span><span></span><span></span>
+                    <em>Developer.java</em>
+                </div>
+                <pre class="code"><code><span class="ln" style="--i:0"><b>public class</b> <i>Developer</i> {</span>
+<span class="ln" style="--i:1">  String  name   = <u>"Guilherme Chebile"</u>;</span>
+<span class="ln" style="--i:2">  int     age    = <u th:text="${age}">18</u>;</span>
+<span class="ln" style="--i:3">  String  course = <u th:text="'&quot;' + #{code.course} + '&quot;'">"Engenharia de Software"</u>;</span>
+<span class="ln" style="--i:4">  String[] stack = {<u>"Java"</u>, <u>"Spring Boot"</u>, <u>"Python"</u>};</span>
+<span class="ln" style="--i:5">  String  since  = <u th:text="'&quot;' + #{code.since} + '&quot;'">"marketing digital desde 2025"</u>;</span>
+<span class="ln" style="--i:6">}<span class="cursor" aria-hidden="true"></span></span></code></pre>
+            </figure>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 th:text="#{about.title}">Sobre mim</h2>
+            <div class="about-grid">
+                <div class="prose">
+                    <p th:text="#{about.p1(${age})}">...</p>
+                    <p th:text="#{about.p2}">...</p>
+                    <h3 th:text="#{about.interests.title}">Interesses</h3>
+                    <p th:text="#{about.interests.text}">...</p>
+                    <h3 th:text="#{about.goals.title}">Objetivos profissionais</h3>
+                    <p th:text="#{about.goals.text}">...</p>
+                </div>
+
+                <aside class="side">
+                    <h3 th:text="#{about.education.title}">Formação</h3>
+                    <ol class="edu">
+                        <li th:each="e : ${education}">
+                            <strong th:text="#{'education.' + ${e.key} + '.school'}">Escola</strong>
+                            <span th:text="#{'education.' + ${e.key} + '.detail'}">Detalhe</span>
+                        </li>
+                    </ol>
+
+                    <h3 th:text="#{about.skills.title}">Tecnologias e habilidades</h3>
+                    <ul class="chips">
+                        <li th:each="s : ${skills}" th:text="${s}">Java</li>
+                    </ul>
+                </aside>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

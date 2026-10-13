@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" th:content="#{site.description}">
+    <meta name="theme-color" content="#090d18">
+    <title th:text="${title}">Portfólio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header class="site-header" th:fragment="header(active)">
+    <a class="skip" href="#main" th:text="#{site.skip}">Pular</a>
+    <div class="container header-inner">
+        <a class="brand" th:href="@{/}" aria-label="Guilherme Chebile">
+            <span class="brand-mark" aria-hidden="true">gc</span>
+            <span class="brand-name" th:text="#{brand.name}">Guilherme Chebile</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" th:aria-label="#{nav.menu}">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav id="site-nav" class="site-nav">
+            <a th:href="@{/}" th:classappend="${active == 'about'} ? 'is-active'" th:aria-current="${active == 'about'} ? 'page'" th:text="#{nav.about}">Sobre mim</a>
+            <a th:href="@{/projetos}" th:classappend="${active == 'projects'} ? 'is-active'" th:aria-current="${active == 'projects'} ? 'page'" th:text="#{nav.projects}">Projetos</a>
+            <a th:href="@{/experiencias}" th:classappend="${active == 'experience'} ? 'is-active'" th:aria-current="${active == 'experience'} ? 'page'" th:text="#{nav.experience}">Experiências</a>
+            <a th:href="@{/contato}" th:classappend="${active == 'contact'} ? 'is-active'" th:aria-current="${active == 'contact'} ? 'page'" th:text="#{nav.contact}">Contato</a>
+
+            <div class="lang-switch" role="group" th:aria-label="#{nav.lang}">
+                <a href="?lang=pt" lang="pt" hreflang="pt" th:classappend="${#locale.language == 'pt'} ? 'is-active'" th:aria-current="${#locale.language == 'pt'} ? 'true'">PT</a>
+                <a href="?lang=en" lang="en" hreflang="en" th:classappend="${#locale.language == 'en'} ? 'is-active'" th:aria-current="${#locale.language == 'en'} ? 'true'">EN</a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<footer class="site-footer" th:fragment="footer">
+    <div class="container footer-inner">
+        <p>© <span th:text="${#dates.year(#dates.createNow())}">2026</span> Guilherme Chebile. <span th:text="#{footer.rights}">Todos os direitos reservados.</span></p>
+        <p class="muted" th:text="#{footer.built}">Feito com Spring Boot e Thymeleaf.</p>
+    </div>
+    <script th:src="@{/js/main.js}" defer></script>
+</footer>
+</body>
+</html>

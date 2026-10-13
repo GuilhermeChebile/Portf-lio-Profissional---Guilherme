@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head th:replace="~{fragments :: head(#{site.title})}"></head>
+<body>
+<header th:replace="~{fragments :: header(${active})}"></header>
+
+<main id="main">
+    <section class="section page-top">
+        <div class="container">
+            <h1 class="page-title" th:text="#{experience.title}">Experiências</h1>
+            <p class="lead" th:text="#{experience.lead}">Trajetória profissional até aqui.</p>
+
+            <article class="exp" th:each="x : ${experiences}">
+                <div class="exp-head">
+                    <div>
+                        <h2 th:text="#{'experience.' + ${x.key} + '.role'}">Cargo</h2>
+                        <p class="org" th:text="#{'experience.' + ${x.key} + '.org'}">Empresa</p>
+                    </div>
+                    <p class="meta">
+                        <span th:text="#{'experience.' + ${x.key} + '.period'}">Período</span>
+                        <span class="badge is-live" th:text="#{experience.present}">Atual</span>
+                    </p>
+                </div>
+
+                <p class="exp-desc" th:text="#{'experience.' + ${x.key} + '.desc'}">Descrição</p>
+
+                <dl class="stats">
+                    <div><dt th:text="#{experience.stat.active}">clientes ativos</dt><dd>70+</dd></div>
+                    <div><dt th:text="#{experience.stat.total}">empresas já atendidas</dt><dd>150+</dd></div>
+                </dl>
+
+                <ul class="checks">
+                    <li th:each="h : ${x.highlights}" th:text="#{'experience.' + ${x.key} + '.' + ${h}}">Item</li>
+                </ul>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

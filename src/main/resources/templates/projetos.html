@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head th:replace="~{fragments :: head(#{site.title})}"></head>
+<body>
+<header th:replace="~{fragments :: header(${active})}"></header>
+
+<main id="main">
+    <section class="section page-top">
+        <div class="container">
+            <h1 class="page-title" th:text="#{projects.title}">Projetos</h1>
+            <p class="lead" th:text="#{projects.lead}">Do mais antigo ao mais recente.</p>
+
+            <ol class="timeline">
+                <li class="t-item" th:each="p : ${projects}">
+                    <span class="t-node" th:classappend="${p.ongoing} ? 'is-live'" aria-hidden="true"></span>
+                    <article class="project">
+                        <a class="shot" th:href="${p.repositoryUrl}" target="_blank" rel="noopener noreferrer">
+                            <img th:src="@{${p.image}}" th:alt="#{'project.' + ${p.key} + '.alt'}" loading="lazy" width="800" height="500">
+                        </a>
+                        <div class="project-body">
+                            <p class="meta">
+                                <span th:text="#{'project.' + ${p.key} + '.period'}">Período</span>
+                                <span class="badge" th:classappend="${p.ongoing} ? 'is-live'"
+                                      th:text="${p.ongoing} ? #{project.status.ongoing} : #{project.status.done}">Status</span>
+                            </p>
+                            <h2 th:text="#{'project.' + ${p.key} + '.name'}">Nome</h2>
+                            <p th:text="#{'project.' + ${p.key} + '.desc'}">Descrição</p>
+                            <ul class="chips" th:attr="aria-label=#{projects.tech}">
+                                <li th:each="t : ${p.technologies}" th:text="${t}">Java</li>
+                            </ul>
+                            <a class="link" th:href="${p.repositoryUrl}" target="_blank" rel="noopener noreferrer" th:text="#{projects.repo}">Ver repositório</a>
+                        </div>
+                    </article>
+                </li>
+            </ol>
+        </div>
+    </section>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>
